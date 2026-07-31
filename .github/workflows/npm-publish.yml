@@ -1,0 +1,25 @@
+name: Release to npm
+
+on:
+  workflow_dispatch:        # manueller Start: Actions-Tab → "Run workflow"
+  release:
+    types: [created]        # und automatisch beim Anlegen eines GitHub-Releases
+
+permissions:
+  contents: read
+  id-token: write           # npm-Provenance (Sigstore) braucht das OIDC-Token
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run lint    # statt npm test – das Paket hat kein test-Script
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
