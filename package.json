@@ -1,0 +1,60 @@
+{
+	"name": "n8n-nodes-easycompliance",
+	"version": "0.1.0",
+	"description": "n8n community node for the easycompliance sanctions list and PEP screening API",
+	"keywords": [
+		"n8n-community-node-package",
+		"easycompliance",
+		"sanctions",
+		"sanctions-list",
+		"pep",
+		"compliance",
+		"screening"
+	],
+	"license": "MIT",
+	"homepage": "https://www.easycompliance.de/schnittstellen/n8n/",
+	"author": {
+		"name": "Siemssen Consulting GmbH",
+		"email": "info@easycompliance.de"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Siemssen-Consulting-GmbH/n8n-nodes-easycompliance.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Siemssen-Consulting-GmbH/n8n-nodes-easycompliance/issues"
+	},
+	"engines": {
+		"node": ">=20.15"
+	},
+	"main": "index.js",
+	"files": [
+		"dist"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"credentials": [
+			"dist/credentials/EasycomplianceApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/Easycompliance/Easycompliance.node.js"
+		]
+	},
+	"scripts": {
+		"build": "tsc && node scripts/copy-icons.mjs",
+		"dev": "tsc --watch",
+		"lint": "eslint nodes credentials --ext .ts",
+		"prepublishOnly": "npm run build"
+	},
+	"devDependencies": {
+		"@types/node": "^20.14.0",
+		"@typescript-eslint/parser": "^8.0.0",
+		"eslint": "^8.57.0",
+		"eslint-plugin-n8n-nodes-base": "^1.16.0",
+		"n8n-workflow": "^1.48.0",
+		"typescript": "^5.5.0"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}
